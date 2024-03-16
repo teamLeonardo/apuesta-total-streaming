@@ -1,8 +1,30 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
+import localFont from 'next/font/local'
 
-const inter = Inter({ subsets: ["latin"] });
+
+const localMarlin = localFont({
+  src: [
+    {
+      path: '../assets/fonts/MarlinGeoSQ-Regular.woff2',
+      weight: 'normal',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/MarlinGeoSQ-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/MarlinGeoSQ-Bold.woff2',
+      weight: 'bold',
+      style: 'normal',
+    },
+  ],
+  variable: "--font-local-marlin"
+})
+
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +37,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="es">
+      <body className={localMarlin.className + " bg-fondo"}>
+        {children}
+      </body>
     </html>
   );
 }

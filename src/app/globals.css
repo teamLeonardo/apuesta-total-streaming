@@ -2,29 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+  --panel-color: #14192C;
+  --text-color-1: #8992AB;
+  --text-color-2: #ffffff;
+  --secondary-color: #30a4ed;
+  --secondary-color-transparent: #30a4ed40;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 }
+
+
+.carousel {
+  display: inline-flex;
+  overflow-x: hidden;
+  /*  scroll snap is a great feature which will center the image on snap on touch screen devices  */
+  scroll-snap-type: x mandatory;
+  /* all below will hide the scrollbar on all browsers.    */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  /* For Firefox */
+  -ms-overflow-style: none;
+  /* For Internet Explorer and Edge */
+}
+
+.borderPanel {
+  -webkit-user-select: none;
+  user-select: none;
+  border: none;
+  border-image-slice: 1;
+  background: linear-gradient(150deg, var(--panel-color), transparent) border-box,
+    linear-gradient(var(--panel-color), var(--panel-color)) padding-box,
+    linear-gradient(150deg, transparent 80%, var(--secondary-color)) border-box;
+  /* padding: 16px; */
+  box-sizing: border-box;
+  border: 1px solid transparent;
+}
+
 
 @layer utilities {
   .text-balance {
