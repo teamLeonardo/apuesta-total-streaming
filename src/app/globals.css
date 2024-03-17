@@ -10,7 +10,7 @@
   --panel-color: #14192C;
   --text-color-1: #8992AB;
   --text-color-2: #ffffff;
-  --secondary-color: #30a4ed;
+  --secondary-color: 48, 164, 237;
   --secondary-color-transparent: #30a4ed40;
 }
 
@@ -32,22 +32,54 @@ body {
   /* For Internet Explorer and Edge */
 }
 
+
+
 .borderPanel {
   -webkit-user-select: none;
   user-select: none;
   border: none;
   border-image-slice: 1;
-  background: linear-gradient(150deg, var(--panel-color), transparent) border-box,
-    linear-gradient(var(--panel-color), var(--panel-color)) padding-box,
-    linear-gradient(150deg, transparent 80%, var(--secondary-color)) border-box;
+  background: linear-gradient(var(--panel-color), var(--panel-color)) padding-box,
+    linear-gradient(100deg, var(--panel-color) 80%, rgba(var(--secondary-color))) border-box;
   /* padding: 16px; */
   box-sizing: border-box;
   border: 1px solid transparent;
 }
 
 
+@property --circle-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: var(--secondary-color);
+}
+
+@property --circle-size {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 1000px;
+}
+
+
+.gradientFloat {
+  background: rgb(var(--circle-color));
+  background: radial-gradient(circle, rgba(var(--circle-color), 0.2) -18%, transparent 35%);
+  width: var(--circle-size);
+  height: var(--circle-size);
+}
+
+
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .carrusel {
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+  }
+  
+  .carrusel::-webkit-scrollbar {
+    display: none;
   }
 }

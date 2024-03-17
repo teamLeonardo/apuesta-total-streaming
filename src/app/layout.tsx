@@ -20,8 +20,7 @@ const localMarlin = localFont({
       weight: 'bold',
       style: 'normal',
     },
-  ],
-  variable: "--font-local-marlin"
+  ]
 })
 
 

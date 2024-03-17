@@ -9,6 +9,15 @@ const nextConfig = {
     images: {
         domains: ['m.media-amazon.com', 'image.tmdb.org', "pelisimg.online"]
     },
+    async redirects() {
+        return [
+            {
+                source: '/',
+                destination: '/inicio',
+                permanent: true,
+            },
+        ]
+    },
 };
 
 export default nextConfig;
