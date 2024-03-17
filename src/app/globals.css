@@ -19,20 +19,11 @@ body {
 }
 
 
-.carousel {
-  display: inline-flex;
-  overflow-x: hidden;
-  /*  scroll snap is a great feature which will center the image on snap on touch screen devices  */
-  scroll-snap-type: x mandatory;
-  /* all below will hide the scrollbar on all browsers.    */
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  /* For Firefox */
-  -ms-overflow-style: none;
-  /* For Internet Explorer and Edge */
+@property --panel-direction-border {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 100deg;
 }
-
-
 
 .borderPanel {
   -webkit-user-select: none;
@@ -40,7 +31,7 @@ body {
   border: none;
   border-image-slice: 1;
   background: linear-gradient(var(--panel-color), var(--panel-color)) padding-box,
-    linear-gradient(100deg, var(--panel-color) 80%, rgba(var(--secondary-color))) border-box;
+    linear-gradient(var(--panel-direction-border), var(--panel-color) 80%, rgba(var(--secondary-color))) border-box;
   /* padding: 16px; */
   box-sizing: border-box;
   border: 1px solid transparent;
@@ -67,7 +58,18 @@ body {
   height: var(--circle-size);
 }
 
+.fade-anim img {
+  animation: fadeAnim 0.5s ease-out;
+}
 
+@keyframes fadeAnim {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 @layer utilities {
   .text-balance {

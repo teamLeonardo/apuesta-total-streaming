@@ -14,11 +14,12 @@ export default async function TopListHome({
     page?: string
 }) {
     const type = path.includes('movie') ? 'movie' : 'tv'
+    const toPlus = path.includes('movie') ? "peliculas" : "series"
     const query = page ? `language=es-ES&page=${page}` : ''
     const { results: data } = await fetchData(path, query)
 
     return <Block className="relative 
-    w-[900px]
+    w-full
     h-auto p-5 bg-transparent border-[1px] border-[var(--secondary-color-transparent)]
     rounded-[30px] 
     overflow-hidden"
@@ -29,18 +30,10 @@ export default async function TopListHome({
             <TilleHome type={"h1"}>
                 {title}
             </TilleHome>
-            <LinkButton to="/peliculas">
+            <LinkButton to={"/" + toPlus}>
                 ver mas
             </LinkButton>
         </div>
-        {/* <div
-            className='flex gap-2 overflow-x-scroll carrusel snap-x snap-mandatory scroll-smooth'
-        >
-            <CardHome result={{ backdrop_path: "/gJL5kp5FMopB2sN4WZYnNT5uO0u.jpg", title: "panda", release_date: Date.now() }} />
-            <CardHome result={{ backdrop_path: "/gJL5kp5FMopB2sN4WZYnNT5uO0u.jpg", title: "panda", release_date: Date.now() }} />
-            <CardHome result={{ backdrop_path: "/gJL5kp5FMopB2sN4WZYnNT5uO0u.jpg", title: "panda", release_date: Date.now() }} />
-            <CardHome result={{ backdrop_path: "/gJL5kp5FMopB2sN4WZYnNT5uO0u.jpg", title: "panda", release_date: Date.now() }} />
-        </div> */}
         <SliderMedia data={data} type={type} />
     </Block>
 

@@ -24,3 +24,8 @@ point.interceptors.request.use((conf) => {
 export {
     point
 }
+
+export const getAllMovies = async (payload: any) => {
+    const { pageParam: page = 1, ...resto } = payload
+    return (await point.get("/discover/movie", { params: { page, ...resto } || {} })).data.results
+}

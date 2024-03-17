@@ -1,83 +1,104 @@
 'use client'
 
-import { createRef, useState } from "react";
-
-const images = [
-    'https://image.tmdb.org/t/p/w780/gJL5kp5FMopB2sN4WZYnNT5uO0u.jpg',
-    'https://images.unsplash.com/photo-1523438097201-512ae7d59c44?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80',
-    'https://images.unsplash.com/photo-1513026705753-bc3fffca8bf4?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80'
-]
-
-export const Carousel = () => {
-    const [currentImage, setCurrentImage] = useState(0);
-
- 
-    const refs = images.reduce((acc: any, val, i) => {
-        acc[i] = createRef();
-        return acc;
-    }, {});
-
-    const scrollToImage = (i: any) => {
-        setCurrentImage(i);
-      
-        refs[i].current.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-            inline: 'start',
-        });
-    };
-
-    const totalImages = images.length;
+import { Block } from "@/components/atom/block/block";
+import { useEffect, useRef, useState } from "react";
+import { AiOutlineVerticalLeft, AiOutlineVerticalRight } from "react-icons/ai";
 
 
-    const nextImage = () => {
-        if (currentImage >= totalImages - 1) {
-            scrollToImage(0);
-        } else {
-            scrollToImage(currentImage + 1);
+let count = 0;
+let slideInterval: any = null;
+
+export const Carousel = ({ data }: { data: any[] }) => {
+
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const slideRef = useRef<any>();
+
+    const removeAnimation = () => {
+        if (slideRef.current) {
+            slideRef.current.classList.remove("fade-anim");
+
         }
     };
 
-    const previousImage = () => {
-        if (currentImage === 0) {
-            scrollToImage(totalImages - 1);
-        } else {
-            scrollToImage(currentImage - 1);
+    useEffect(() => {
+        if (slideRef.current) {
+            slideRef.current.addEventListener("animationend", removeAnimation);
+            slideRef.current.addEventListener("mouseenter", pauseSlider);
+            slideRef.current.addEventListener("mouseleave", startSlider);
         }
+
+        startSlider();
+        return () => {
+            pauseSlider();
+        };
+    }, []);
+
+    const startSlider = () => {
+        slideInterval = setInterval(() => {
+            handleOnNextClick();
+        }, 3000);
     };
 
-    const arrowStyle =
-        'absolute text-white text-2xl z-10 bg-black h-10 w-10 rounded-full opacity-75 flex items-center justify-center';
+    const pauseSlider = () => {
+        clearInterval(slideInterval);
+    };
 
-    const sliderControl = (isLeft = false) => (
-        <button
-            type="button"
-            onClick={isLeft ? previousImage : nextImage}
-            className={`${arrowStyle} ${isLeft ? 'left-2' : 'right-2'}`}
-            style={{ top: '40%' }}
-        >
-            <span className="font-bold" role="img" aria-label={`Arrow ${isLeft ? 'left' : 'right'}`}>
-                {isLeft ? '<' : '>'}
-            </span>
-        </button>
-    );
+    const handleOnNextClick = () => {
+        count = (count + 1) % 5;
+        setCurrentIndex(count);
+        if (slideRef.current) {
+            slideRef.current.classList.add("fade-anim");
+        }
+    };
+    const handleOnPrevClick = () => {
+        const productsLength = 5;
+        count = (currentIndex + productsLength - 1) % productsLength;
+        setCurrentIndex(count);
+        if (slideRef.current) {
+            slideRef.current.classList.add("fade-anim");
+        }
+    };
 
     return (
-
-        <div className="flex  w-full h-[500px] relative items-center overflow-hidden">
-            <div className="relative w-full h-full">
-                <div className="carouse h-full ">
-                    {sliderControl(true)}
-                    {images.map((img, i) => (
-                        <div className="w-full h-[500px] flex-shrink-0" key={img} ref={refs[i]}>
-                            <img src={img} className="absolute select-none [aspect-ratio:auto_1200_/_780] w-full h-full object-cover " />
-                            <div className="text-white font-[30pt] ">titlqasdasd </div>
-
-                        </div>
-                    ))}
-                    {sliderControl()}
+        <div ref={slideRef} className="w-full h-auto mt-[28px] select-none relative overflow-hidden rounded-[30px] ">
+            <div className="aspect-video relative">
+                <div className="relative w-full h-full flex flex-col justify-center items-center ">
+                    <h1 className="relative font-bold text-text2 text-3xl">{data[currentIndex].title}</h1>
+                    <Block className="w-[150px] h-[200px] relative">
+                        <img className="w-full relative"
+                            src={`https://image.tmdb.org/t/p/w780${data[currentIndex].poster_path}`} alt="" />
+                    </Block>
+                </div>
+                <div className="absolute w-full h-full backdrop-blur-3xl blur-md  top-0 left-0 -z-10 
+                    bg-gradient-radial
+                    to-transparent
+                    aspect-video 
+                    from-red
+                ">
+                    <img
+                        className="w-full"
+                        src={`https://image.tmdb.org/t/p/w780${data[currentIndex].backdrop_path}`}
+                        alt=""
+                    />
                 </div>
             </div>
+
+            <div className="absolute w-full top-1/2 transform -translate-y-1/2 px-3 flex justify-between items-center">
+                <button
+                    className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition"
+                    onClick={handleOnPrevClick}
+                >
+                    <AiOutlineVerticalRight size={30} />
+                </button>
+                <button
+                    className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition"
+                    onClick={handleOnNextClick}
+                >
+                    <AiOutlineVerticalLeft size={30} />
+                </button>
+            </div>
         </div>
+
     );
-};
+}
