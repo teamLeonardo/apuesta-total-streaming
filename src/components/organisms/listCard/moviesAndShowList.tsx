@@ -1,6 +1,6 @@
 'use client'
-import { CardMovie } from "@/components/molecules/card/cardMovie";
-import { getAllMovies } from "@/services/config.service";
+import { CardMovieAndShow } from "@/components/molecules/card/cardMovie";
+import { getAllMovies, getAllShows } from "@/services/config.service";
 import { MoviesAndSeries } from "@/shared/types/moviesType";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
@@ -8,7 +8,7 @@ import { useInView } from "react-intersection-observer";
 
 let page = 2;
 
-export function MoviesList() {
+export function MoviesAndShowList({ type }: { type: string }) {
 
     const { ref, inView } = useInView();
 
@@ -22,7 +22,8 @@ export function MoviesList() {
             const delay = 500;
 
             const timeoutId = setTimeout(() => {
-                getAllMovies({ pageParam: page, ...{} })
+                const getAll = type === "tv" ? getAllShows : getAllMovies
+                getAll({ pageParam: page, ...{} })
                     .then((res) => {
                         setData([...movies, ...res]);
                         page++;
@@ -39,7 +40,7 @@ export function MoviesList() {
         <div className="w-full grid grid-cols-4 m-auto mt-10 gap-10 relative">
             {
                 movies && movies?.map((movie: MoviesAndSeries) => {
-                    return <CardMovie key={movie.id} movie={movie} />
+                    return <CardMovieAndShow type={type} key={movie.id} movie={movie} />
                 })
             }
         </div>

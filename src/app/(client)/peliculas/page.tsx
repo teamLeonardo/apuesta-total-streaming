@@ -1,5 +1,5 @@
-import { CardMovie } from "@/components/molecules/card/cardMovie";
-import { MoviesList } from "@/components/organisms/listCard/moviesList";
+import { CardMovieAndShow } from "@/components/molecules/card/cardMovie";
+import { MoviesAndShowList } from "@/components/organisms/listCard/moviesAndShowList";
 import { getAllMovies } from "@/services/config.service";
 import { MoviesAndSeries } from "@/shared/types/moviesType";
 
@@ -20,11 +20,11 @@ export default async function movie() {
             <div className="grid grid-cols-4 m-auto mt-10 gap-10 relative">
                 {
                     movies && movies?.map((movie: MoviesAndSeries) => {
-                        return <CardMovie key={movie.id} movie={movie} />
+                        return <CardMovieAndShow type="movie" key={movie.id} movie={movie} />
                     })
                 }
             </div>
-            <MoviesList />
+            <MoviesAndShowList type="movie" />
         </div>
 
     );

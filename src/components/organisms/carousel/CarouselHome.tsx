@@ -26,9 +26,9 @@ export const Carousel = ({ data }: { data: any[] }) => {
             slideRef.current.addEventListener("animationend", removeAnimation);
             slideRef.current.addEventListener("mouseenter", pauseSlider);
             slideRef.current.addEventListener("mouseleave", startSlider);
+            startSlider();
         }
 
-        startSlider();
         return () => {
             pauseSlider();
         };

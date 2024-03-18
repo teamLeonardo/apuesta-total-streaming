@@ -4,14 +4,15 @@ import { useRouter } from "next/navigation";
 import { MoviesAndSeries } from "@/shared/types/moviesType";
 
 
-export function CardMovie({ movie }: { movie: MoviesAndSeries }) {
+export function CardMovieAndShow({ movie, type }: { movie: MoviesAndSeries , type: string }) {
     const router = useRouter()
     if (!movie.poster_path) {
         return <></>
     }
+    const title = movie.title ?? movie.name
     return <div
         onClick={() => {
-            router.push('/movie/' + movie.id)
+            router.push(`/media/${movie.id}-${type}`)
         }}
         className="relative flex-[1_0_21%] group hover:cursor-pointer flex justify-center items-center">
         <div className="relative w-auto grid grid-rows-[1fr,auto] gap-2 ">
@@ -55,7 +56,7 @@ export function CardMovie({ movie }: { movie: MoviesAndSeries }) {
             <div className="w-full flex justify-center">
                 <h2 className="text-white w-[178px] truncate text-center text-sm group-hover:text-primary">
                     {
-                        movie?.title
+                        title
                     }
                 </h2>
             </div>
@@ -95,7 +96,7 @@ export function CardMovie({ movie }: { movie: MoviesAndSeries }) {
                     "
             >
                 {
-                    movie?.title
+                    title
                 }
             </div>
             <div

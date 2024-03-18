@@ -29,3 +29,12 @@ export const getAllMovies = async (payload: any) => {
     const { pageParam: page = 1, ...resto } = payload
     return (await point.get("/discover/movie", { params: { page, ...resto } || {} })).data.results
 }
+export const getAllShows = async (payload: any) => {
+    const { pageParam: page = 1, ...resto } = payload
+    return (await point.get("/discover/tv", { params: { page, ...resto } || {} })).data.results
+}
+
+export const getById = async (id: any, type: string) => {
+    return (await point.get(`/${type}/${id}`)).data
+}
+
