@@ -37,14 +37,14 @@ export function MoviesAndShowList({ type }: { type: string }) {
         }
     }, [inView, movies, isLoading]);
     return <>
-        <div className="w-full grid grid-cols-4 m-auto mt-10 gap-10 relative">
+        <div className="grid grid-cols-2 laptop:grid-cols-4 mt-10 gap-2 laptop:gap-10 relative">
             {
                 movies && movies?.map((movie: MoviesAndSeries) => {
                     return <CardMovieAndShow type={type} key={movie.id} movie={movie} />
                 })
             }
         </div>
-        <div className="w-full h-[20vh] m-auto flex justify-center items-center" ref={ref}>
+        <div className="w-full h-[20vh] flex justify-center items-center" ref={ref}>
             {inView && isLoading && (
                 <div>
                     ... loading

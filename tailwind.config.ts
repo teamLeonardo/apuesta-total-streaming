@@ -26,6 +26,11 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      screens: {
+        'tablet': '740px',
+        'laptop': '1024px',
+        'desktop': '1280px',
+      },
       colors: {
         'fondo': "#101427",
         panel: "var(--panel-color)",

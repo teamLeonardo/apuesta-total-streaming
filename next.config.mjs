@@ -7,7 +7,7 @@ const nextConfig = {
         imageTmdb: "https://image.tmdb.org/t/p/w500"
     },
     images: {
-        domains: ['m.media-amazon.com', 'image.tmdb.org', "pelisimg.online" ,"i.imgur.com", "encrypted-tbn0.gstatic.com"]
+        domains: ['m.media-amazon.com', 'image.tmdb.org', "pelisimg.online", "interactive-examples.mdn.mozilla.net", "i.imgur.com", "encrypted-tbn0.gstatic.com"]
     },
     async redirects() {
         return [

@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 
+
 :root {
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
@@ -12,6 +13,29 @@
   --text-color-2: #ffffff;
   --secondary-color: 48, 164, 237;
   --secondary-color-transparent: #30a4ed40;
+}
+
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  /* background: rgb(var(--secondary-color), .6); */
+  background-image: -webkit-linear-gradient(90deg,
+      transparent 0%,
+      rgba(var(--secondary-color), 1) 55%,
+      transparent 75%,
+      transparent)
 }
 
 body {
@@ -66,6 +90,7 @@ body {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -78,9 +103,9 @@ body {
 
   .carrusel {
     scrollbar-width: none;
-    -ms-overflow-style: none; 
+    -ms-overflow-style: none;
   }
-  
+
   .carrusel::-webkit-scrollbar {
     display: none;
   }

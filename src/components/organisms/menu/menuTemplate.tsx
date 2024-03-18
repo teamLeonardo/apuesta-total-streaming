@@ -35,7 +35,7 @@ group-hover:text-secondaryColor"
 
 export const MenuTemplate = () => {
     const data = dataMenuList()
-    return <section className="w-[17vw] h-full sticky top-0">
+    return <section className="w-[17vw] h-full hidden laptop:block sticky top-0">
         <div className="w-full h-[12vh] grid grid-rows-[1fr,auto,1fr] ">
             <div className="w-full bg-panel h-full" />
             <div className="w-full h-full grid grid-cols-[1fr,auto]">
