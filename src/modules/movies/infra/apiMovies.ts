@@ -1,8 +1,9 @@
 import { point } from "@/services/config.service";
 import { TypeMovie } from "../domain/movieType";
+import { TypeApiMovie } from "../domain/apiMovieType";
 
 
-export const apiMovies = () => {
+export const apiMovies = (): TypeApiMovie => {
     const cache = new Map<number, any>();
 
     // const getAllMovies = async (payload: any) => {
@@ -21,9 +22,13 @@ export const apiMovies = () => {
 
         return movies;
     }
+    async function getById(id: string): Promise<TypeMovie> {
+        return (await point.get(`/movie/${id}`)).data
+    }
 
     return {
-        getAll
+        getAll,
+        getById
     }
 }
 
