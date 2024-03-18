@@ -1,8 +1,9 @@
 import { point } from "@/services/config.service";
-import { TypeMovie } from "../domain/movieType";
+import { TypeShow } from "../domain/showType";
+import { TypeApiShow } from "../domain/apiShowType";
 
 
-export const apiMovies = () => {
+export const apiShows = (): TypeApiShow => {
     const cache = new Map<number, any>();
 
     // const getAllMovies = async (payload: any) => {
@@ -10,16 +11,16 @@ export const apiMovies = () => {
     //     return (await point.get("/discover/movie", { params: { page, ...resto } || {} })).data.results
     // }
 
-    async function getAll(payload: any): Promise<TypeMovie[]> {
+    async function getAll(payload: any): Promise<TypeShow[]> {
         // if (cache.size > 0) {
         //     return Array.from(cache.values());
         // }
         const { pageParam: page = 1, ...resto } = payload
-        const response = await point.get("/discover/movie", { params: { page, ...resto } || {} })
-        const movies = response.data.results as TypeMovie[];
-        movies.forEach((movie: any) => cache.set(movie.id, movie));
+        const response = await point.get("/discover/tv", { params: { page, ...resto } || {} })
+        const shows = response.data.results as TypeShow[];
+        shows.forEach((movie: any) => cache.set(movie.id, movie));
 
-        return movies;
+        return shows;
     }
 
     return {

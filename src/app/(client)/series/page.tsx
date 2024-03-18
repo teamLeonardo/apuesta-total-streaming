@@ -1,11 +1,15 @@
 import { CardMovieAndShow } from "@/components/molecules/card/cardMovie";
 import { MoviesAndShowList } from "@/components/organisms/listCard/moviesAndShowList";
-import { getAllShows } from "@/services/config.service";
 import { MoviesAndSeries } from "@/shared/types/moviesType";
 
-export default async function shoew() {
-    const movies = await getAllShows({ pageParam: 1, ...{} });
+import { getAllShow } from "@/modules/shows/application/get/getAllShow";
 
+import { apiShows as createApiShows } from "@/modules/shows/infra/apiShow";
+
+const apiShows = createApiShows();
+
+export default async function shoew() {
+    const movies = (await getAllShow(apiShows)({ pageParam: 1, ...{} }));
     return (
         <div className='w-full h-full pb-32'>
 

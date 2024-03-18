@@ -1,11 +1,13 @@
 import { CardMovieAndShow } from "@/components/molecules/card/cardMovie";
 import { MoviesAndShowList } from "@/components/organisms/listCard/moviesAndShowList";
-import { getAllMovies } from "@/services/config.service";
+import { getAllMovies } from "@/modules/movies/application/get/getAllMovie";
+import { apiMovies as createApiMovies } from "@/modules/movies/infra/apiMovies";
 import { MoviesAndSeries } from "@/shared/types/moviesType";
 
-export default async function movie() {
-    const movies = await getAllMovies({ pageParam: 1, ...{} });
+const apiMovies = createApiMovies();
 
+export default async function movie() {
+    const movies = (await getAllMovies(apiMovies)({ pageParam: 1, ...{} }));
     return (
         <div className='w-full h-full pb-32'>
 

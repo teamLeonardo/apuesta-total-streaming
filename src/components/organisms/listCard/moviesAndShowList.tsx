@@ -1,12 +1,20 @@
 'use client'
 import { CardMovieAndShow } from "@/components/molecules/card/cardMovie";
-import { getAllMovies, getAllShows } from "@/services/config.service";
 import { MoviesAndSeries } from "@/shared/types/moviesType";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
+import { apiMovies as createApiMovies } from "@/modules/movies/infra/apiMovies";
+
+import { apiShows as createApiShows } from "@/modules/shows/infra/apiShow";
+
+import { getAllMovies } from "@/modules/movies/application/get/getAllMovie";
+import { getAllShow } from "@/modules/shows/application/get/getAllShow";
 
 let page = 2;
+
+const apiMovies = createApiMovies();
+const apiShows = createApiShows();
 
 export function MoviesAndShowList({ type }: { type: string }) {
 
@@ -22,7 +30,11 @@ export function MoviesAndShowList({ type }: { type: string }) {
             const delay = 500;
 
             const timeoutId = setTimeout(() => {
-                const getAll = type === "tv" ? getAllShows : getAllMovies
+                const moviesFetch = getAllMovies(apiMovies);
+                const showFetch = getAllShow(apiShows);
+
+                const getAll = type === "tv" ? showFetch : moviesFetch
+
                 getAll({ pageParam: page, ...{} })
                     .then((res) => {
                         setData([...movies, ...res]);

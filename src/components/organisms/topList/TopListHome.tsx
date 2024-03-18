@@ -2,7 +2,14 @@ import { Block } from "@/components/atom/block/block"
 import { LinkButton } from "@/components/atom/button/link"
 import { TilleHome } from "@/components/atom/title/titleHome"
 import SliderMedia from "@/components/molecules/slider/sliderMedia"
-import { fetchData } from "@/shared/utils/fetchData"
+
+import { apiMovies as createApiMovies } from "@/modules/movies/infra/apiMovies";
+import { apiShows as createApiShows } from "@/modules/shows/infra/apiShow";
+import { getAllMovies } from "@/modules/movies/application/get/getAllMovie"
+import { getAllShow } from "@/modules/shows/application/get/getAllShow"
+
+const apiMovies = createApiMovies();
+const apiShows = createApiShows();
 
 export default async function TopListHome({
     path,
@@ -14,9 +21,15 @@ export default async function TopListHome({
     page?: string
 }) {
     const type = path.includes('movie') ? 'movie' : 'tv'
+
+    const moviesFetch = getAllMovies(apiMovies);
+    const showFetch = getAllShow(apiShows);
+
+    const getAll = type === "tv" ? showFetch : moviesFetch
+
     const toPlus = path.includes('movie') ? "peliculas" : "series"
-    const query = page ? `language=es-ES&page=${page}` : ''
-    const { results: data } = await fetchData(path, query)
+
+    const data = await getAll({ pageParam: page })
 
     return <Block className="relative 
     w-full
