@@ -40,7 +40,7 @@ export default async function TopListHome({
         <div className="absolute w-full h-full blur-xl backdrop-blur-xl bg-[rgba(var(--secondary-color),.05)] top-0 left-0" />
 
         <div className="relative w-full mb-[20px] flex justify-between ">
-            <TilleHome type={"h1"}>
+            <TilleHome type={"h2"}>
                 {title}
             </TilleHome>
             <LinkButton to={"/" + toPlus}>
