@@ -14,3 +14,4 @@ Para instalar las dependencias del proyecto, asegúrate de tener Node.js y npm i
 | `npm run dev`      | Inicia el servidor de desarrollo de Next.js.     |
 | `npm run build`    | Construye la aplicación para producción.         |
 | `npm start`        | Inicia el servidor en modo de producción.        |
+| `npm run test`     | Inicio de la pruebas unitarias.                  |
