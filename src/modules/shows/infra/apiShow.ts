@@ -6,10 +6,6 @@ import { TypeApiShow } from "../domain/apiShowType";
 export const apiShows = (): TypeApiShow => {
     const cache = new Map<number, any>();
 
-    // const getAllMovies = async (payload: any) => {
-    //     const { pageParam: page = 1, ...resto } = payload
-    //     return (await point.get("/discover/movie", { params: { page, ...resto } || {} })).data.results
-    // }
 
     async function getAll(payload: any): Promise<TypeShow[]> {
         // if (cache.size > 0) {
@@ -23,8 +19,15 @@ export const apiShows = (): TypeApiShow => {
         return shows;
     }
 
+        
+    async function getById(id: string): Promise<TypeShow> {
+        return (await point.get(`/tv/${id}`)).data
+    }
+
+
     return {
-        getAll
+        getAll,
+        getById
     }
 }
 

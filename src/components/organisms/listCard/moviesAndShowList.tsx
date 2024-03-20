@@ -4,54 +4,54 @@ import { MoviesAndSeries } from "@/shared/types/moviesType";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-import { apiMovies as createApiMovies } from "@/modules/movies/infra/apiMovies";
-
-import { apiShows as createApiShows } from "@/modules/shows/infra/apiShow";
-
-import { getAllMovies } from "@/modules/movies/application/get/getAllMovie";
-import { getAllShow } from "@/modules/shows/application/get/getAllShow";
+import { useMoviesData } from "@/hooks/useMovies";
+import { useShowsData } from "@/hooks/useShows";
+import { TypeMovie } from "@/modules/movies/domain/movieType";
+import { TypeShow } from "@/modules/shows/domain/showType";
 
 let page = 2;
 
-const apiMovies = createApiMovies();
-const apiShows = createApiShows();
 
-export function MoviesAndShowList({ type }: { type: string }) {
+export function MoviesAndShowList({ type }: { type: "tv" | "movie" }) {
 
     const { ref, inView } = useInView();
 
-    const [movies, setData] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+
+    const { data: dataMovies, send: sendMovies } = useMoviesData();
+    const { data: dataShow, send: sendShows } = useShowsData();
+
+    const data = {
+        tv: dataShow as TypeShow[],
+        movie: dataMovies as TypeMovie[]
+    }
 
     useEffect(() => {
         if (inView) {
             setIsLoading(true);
-            // Add a delay of 500 milliseconds
+
             const delay = 500;
 
             const timeoutId = setTimeout(() => {
-                const moviesFetch = getAllMovies(apiMovies);
-                const showFetch = getAllShow(apiShows);
 
-                const getAll = type === "tv" ? showFetch : moviesFetch
+                const getAll = type === "tv" ? sendShows : sendMovies
 
-                getAll({ pageParam: page, ...{} })
-                    .then((res) => {
-                        setData([...movies, ...res]);
+                getAll({ pageParam: page})
+                    .then(() => {
                         page++;
                     });
 
                 setIsLoading(false);
             }, delay);
 
-            // Clear the timeout if the component is unmounted or inView becomes false
             return () => clearTimeout(timeoutId);
         }
-    }, [inView, movies, isLoading]);
+    }, [inView, isLoading]);
+
     return <>
         <div className="grid grid-cols-2 laptop:grid-cols-4 mt-10 gap-2 laptop:gap-10 relative">
             {
-                movies && movies?.map((movie: MoviesAndSeries) => {
+                data[type] && data[type]?.map((movie: MoviesAndSeries) => {
                     return <CardMovieAndShow type={type} key={movie.id} movie={movie} />
                 })
             }

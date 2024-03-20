@@ -9,7 +9,7 @@ import { apiShows as createApiShows } from "@/modules/shows/infra/apiShow";
 const apiShows = createApiShows();
 
 export default async function shoew() {
-    const movies = (await getAllShow(apiShows)({ pageParam: 1, ...{} }));
+    const movies = (await getAllShow(apiShows)({ pageParam: 1 }));
     return (
         <div className='w-full h-full pb-32'>
 

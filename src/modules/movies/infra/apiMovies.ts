@@ -6,10 +6,6 @@ import { TypeApiMovie } from "../domain/apiMovieType";
 export const apiMovies = (): TypeApiMovie => {
     const cache = new Map<number, any>();
 
-    // const getAllMovies = async (payload: any) => {
-    //     const { pageParam: page = 1, ...resto } = payload
-    //     return (await point.get("/discover/movie", { params: { page, ...resto } || {} })).data.results
-    // }
 
     async function getAll(payload: any): Promise<TypeMovie[]> {
         // if (cache.size > 0) {
@@ -22,6 +18,7 @@ export const apiMovies = (): TypeApiMovie => {
 
         return movies;
     }
+
     async function getById(id: string): Promise<TypeMovie> {
         return (await point.get(`/movie/${id}`)).data
     }
