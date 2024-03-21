@@ -43,7 +43,7 @@ export default async function TopListHome({
             <TilleHome type={"h2"}>
                 {title}
             </TilleHome>
-            <LinkButton to={"/" + toPlus}>
+            <LinkButton id={"linkTo" + toPlus} to={"/" + toPlus}>
                 ver mas
             </LinkButton>
         </div>

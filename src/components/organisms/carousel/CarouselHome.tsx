@@ -61,7 +61,7 @@ export const Carousel = ({ data }: { data: any[] }) => {
     };
 
     return (
-        <div ref={slideRef} className="w-full h-auto mt-[28px] select-none relative overflow-hidden rounded-[30px] ">
+        <div id="carouselHome" ref={slideRef} className="w-full h-auto mt-[28px] select-none relative overflow-hidden rounded-[30px] ">
             <div className="aspect-video relative">
                 <div className="relative w-full h-full flex flex-col justify-center items-center ">
                     <h1 className="relative font-bold text-text2 text-3xl">{data[currentIndex].title}</h1>
