@@ -15,7 +15,7 @@ export function FrameMedia({ data }: any) {
     }, [])
     const [open, setOpen] = useState<boolean>(false)
     return <div className="aspect-video cursor-pointer group relative">
-
+        
         {
             open && <iframe
                 className=" bg-panel aspect-video"

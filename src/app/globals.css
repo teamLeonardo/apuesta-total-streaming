@@ -8,7 +8,7 @@
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0;
-  --panel-color: #14192C;
+  --panel-color: #14192c52;
   --text-color-1: #8992AB;
   --text-color-2: #ffffff;
   --secondary-color: 48, 164, 237;
@@ -50,15 +50,7 @@ body {
 }
 
 .borderPanel {
-  -webkit-user-select: none;
-  user-select: none;
-  border: none;
-  border-image-slice: 1;
-  background: linear-gradient(var(--panel-color), var(--panel-color)) padding-box,
-    linear-gradient(var(--panel-direction-border), var(--panel-color) 80%, rgba(var(--secondary-color))) border-box;
-  /* padding: 16px; */
-  box-sizing: border-box;
-  border: 1px solid transparent;
+
 }
 
 

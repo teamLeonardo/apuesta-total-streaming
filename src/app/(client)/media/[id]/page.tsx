@@ -14,8 +14,10 @@ export default async function media({ params }: any) {
     const data = await getById(id, type)
 
     return <div className="w-auto h-full relative pb-[100px]">
+        <img className="absolute w-[130%] -z-10 blur-3xl" src={`https://image.tmdb.org/t/p/w780${data.backdrop_path}`} />
         <div className="w-full h-auto select-none relative overflow-hidden drop-shadow-md rounded-[30px] ">
             <FrameMedia data={data} />
+
         </div>
         <Block className="relative 
         w-full
